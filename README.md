@@ -36,7 +36,7 @@ Fulfilment changes are immutable revision documents under `fulfilment/<reference
 
 ## Owner email alerts
 
-**Live email delivery requires `RESEND_API_KEY`; it is not enabled until a real key is connected and the project is redeployed.** The dashboard displays this setup state. No email key is stored in this repository. Without a verified sending domain, Resend's `onboarding@resend.dev` sender can send only to the email address on the Resend account. Branded senders and other recipients require a verified domain.
+**Owner email alerts are connected in production.** A live checkout test on 20 October 2026 verified that Resend accepted the owner alert and the app saved its private acceptance receipt. API keys are stored only in Vercel environment variables. The dashboard displays a setup notice if email configuration is missing. Without a verified sending domain, Resend's `onboarding@resend.dev` sender can send only to the email address on the Resend account. Branded senders and other recipients require a verified domain.
 
 Configure these server-side Vercel environment variables:
 
@@ -82,6 +82,6 @@ Product names, formulas, ingredient lists, sizes, images, and prices are sample 
 
 ## Verification
 
-The Next.js production compilation and TypeScript check passed locally. Local API checks cover authoritative pricing, persisted orders, replay and concurrent idempotency, invalid products/quantities/coupons, origin restrictions, private order lookup, and contact storage. Owner-flow checks use temporary real Clerk development sessions and isolated local SQLite storage: unauthenticated and other-account denial, CSRF rejection, status transitions, concurrent updates, courier validation, tracking privacy, and missing-email-key behavior. Email-outbox tests use mocked provider responses; they do not establish live email delivery. The original ThreeUI source/asset hash check passed for all 23 entries.
+The Next.js production compilation and TypeScript check passed locally. Local API checks cover authoritative pricing, persisted orders, replay and concurrent idempotency, invalid products/quantities/coupons, origin restrictions, private order lookup, and contact storage. Owner-flow checks use temporary real Clerk development sessions and isolated local SQLite storage: unauthenticated and other-account denial, CSRF rejection, status transitions, concurrent updates, courier validation, tracking privacy, and missing-email-key behavior. Email-outbox tests use mocked provider responses. A separate production checkout test confirmed a saved private order, real Resend acceptance, cleared alert queue, and privacy-filtered customer tracking; its synthetic records were removed. Provider acceptance does not establish inbox delivery. The original ThreeUI source/asset hash check passed for all 23 entries.
 
 `scripts/test-owner-flow.mjs` expects a temporary Clerk QA session file via `MAA_QA_SESSION_FILE` (default `.sites-runtime/owner-qa.json`) and a local development server. `MAA_LOCAL_TEST_MODE=1` isolates order storage and disables real email only in development outside Vercel; it cannot bypass owner authentication or activate in production. Do not run these synthetic order tests against the live shop.
