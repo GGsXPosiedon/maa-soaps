@@ -18,10 +18,43 @@ Development without Blob uses a local SQLite file at `.sites-runtime/orders-dev.
 - Persistent shopping bag, quantity limits, WELCOME10 discount (10%, capped at INR 150), and server-calculated prices. Delivery is INR 60, free for discounted merchandise totals of INR 799 or more.
 - Cash-on-delivery checkout with Indian mobile/PIN validation, immutable saved order documents, and idempotency protection against duplicate submissions.
 - Order lookup requires the reference and checkout email. Tracking responses exclude delivery address and phone.
-- Contact submissions are saved privately. No email or SMS notifications are configured.
+- Contact submissions are saved privately. Contact email and SMS notifications are not configured.
 - API routes: GET /api/products; POST /api/orders; POST /api/orders/track; POST /api/contact.
 
-Order records are private JSON documents under `orders/MAA-<reference>.json`; messages are under `messages/<uuid>.json`. The Vercel project uses short-lived OIDC credentials and BLOB_STORE_ID, with no static storage secret in the code. Inspect these documents in the Maa Soaps private Blob store in your Vercel dashboard. There is no administration dashboard or fulfilment automation yet.
+Order records are private JSON documents under `orders/MAA-<reference>.json`; messages are under `messages/<uuid>.json`. The Vercel project uses short-lived OIDC credentials and BLOB_STORE_ID, with no static storage secret in the code.
+
+## Manage orders
+
+Open **[the private order dashboard](https://maa-soaps.vercel.app/admin)**. Set up sign-in with the exact verified email configured in `MAA_OWNER_EMAIL`. Clerk manages sign-in; every dashboard API independently checks the verified owner email. Other signed-in accounts cannot access order data. Customer checkout does not require an account.
+
+- Filter the order book by status, search loaded orders, or open a full order reference directly. Load additional pages as needed; dates are sorted within the loaded orders, not across unloaded pages.
+- Open an order for soap quantities, COD total, delivery address, contact details, and a printable packing slip.
+- Move orders through **Received → Packing → Shipped → Delivered**. Shipped requires a courier name, tracking/AWB number, and public HTTPS tracking link. Book the courier separately and update delivery status manually.
+- Customers use their reference and checkout email in **Track an order** to see progress and the courier link. Their phone and full address are not returned by public tracking.
+
+Fulfilment changes are immutable revision documents under `fulfilment/<reference>/`. Expected-version checks and create-only writes reject stale or concurrent updates instead of overwriting them. Delivered orders cannot be edited.
+
+## Owner email alerts
+
+**Live email delivery requires `RESEND_API_KEY`; it is not enabled until a real key is connected and the project is redeployed.** The dashboard displays this setup state. No email key is stored in this repository. Without a verified sending domain, Resend's `onboarding@resend.dev` sender can send only to the email address on the Resend account. Branded senders and other recipients require a verified domain.
+
+Configure these server-side Vercel environment variables:
+
+| Variable | Purpose |
+| --- | --- |
+| `MAA_OWNER_EMAIL` | Verified email allowed to open the owner dashboard |
+| `CLERK_SECRET_KEY`, `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` | Managed by the connected Clerk integration |
+| `RESEND_API_KEY` | Secret sending key from the owner's Resend account |
+| `ORDER_ALERT_EMAIL` | Owner's alert destination; never supplied by checkout callers |
+| `ORDER_ALERT_FROM` | Sender; initially `Maa Soaps <onboarding@resend.dev>` |
+| `APP_URL` | Canonical storefront URL used in private dashboard links |
+| `CRON_SECRET` | Production secret authenticating the daily recovery job |
+
+New orders are saved before an alert is attempted. A private outbox entry is created before the response; sending runs after the checkout response, so provider failures do not turn a saved order into a failed checkout. Resend requests use a stable idempotency key, shared storage leases limit concurrent attempts, and accepted messages get persistent private receipts. An accepted receipt means the provider accepted the email, not that it reached the inbox.
+
+Pending alerts can be retried from an order. A protected daily recovery job runs at 03:00 UTC (08:30 India time), within a bounded time budget. This is a recovery pass, not a real-time retry schedule; use the dashboard for immediate retries or a large backlog. Resend's idempotency window is 24 hours, so an ambiguous send whose receipt could not be saved should be checked in Resend before retrying. No customer confirmation emails are sent.
+
+Operational API routes are authenticated under `/api/admin/orders`; the cron route is `/api/cron/order-alerts`. Order data, notification receipts, and queue documents remain in private storage. The owner UI uses an achromatic ledger layout with the shop's wordmark and a packing list as its main action.
 
 ## Deploy on Vercel
 
@@ -45,8 +78,10 @@ Botanical soap SVG illustrations were created for this storefront. The soap stil
 
 ## Launch content to confirm
 
-Product names, formulas, ingredient lists, sizes, images, and prices are sample content and are labelled accordingly on the site. Confirm the actual catalog, delivery coverage, shipping charges, returns terms, business contact details, and fulfilment process before accepting customer orders. Online payments, inventory management, tax invoices, and email notifications are not integrated; checkout currently records COD order requests only.
+Product names, formulas, ingredient lists, sizes, images, and prices are sample content and are labelled accordingly on the site. Confirm the actual catalog, delivery coverage, shipping charges, returns terms, business contact details, and fulfilment process before accepting customer orders. Online payments, courier booking, inventory management, and tax invoices are not integrated; checkout records COD order requests.
 
 ## Verification
 
-The Next.js production compilation and TypeScript check passed locally. Local API checks cover authoritative pricing, persisted orders, replay and concurrent idempotency, invalid products/quantities/coupons, origin restrictions, private order lookup, and contact storage. The original ThreeUI source/asset hash check passed for all 23 entries. Deployment and browser verification are recorded in the delivery notes.
+The Next.js production compilation and TypeScript check passed locally. Local API checks cover authoritative pricing, persisted orders, replay and concurrent idempotency, invalid products/quantities/coupons, origin restrictions, private order lookup, and contact storage. Owner-flow checks use temporary real Clerk development sessions and isolated local SQLite storage: unauthenticated and other-account denial, CSRF rejection, status transitions, concurrent updates, courier validation, tracking privacy, and missing-email-key behavior. Email-outbox tests use mocked provider responses; they do not establish live email delivery. The original ThreeUI source/asset hash check passed for all 23 entries.
+
+`scripts/test-owner-flow.mjs` expects a temporary Clerk QA session file via `MAA_QA_SESSION_FILE` (default `.sites-runtime/owner-qa.json`) and a local development server. `MAA_LOCAL_TEST_MODE=1` isolates order storage and disables real email only in development outside Vercel; it cannot bypass owner authentication or activate in production. Do not run these synthetic order tests against the live shop.

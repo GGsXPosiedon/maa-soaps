@@ -5,6 +5,7 @@ dist
 .wrangler
 .vinext
 .openai
+.taste-skill
 .git
 *.tsbuildinfo
 examples
