@@ -29,8 +29,12 @@ const concurrent="MAA-BBBBBBBBBBBB";await storage.createOrder({...template,refer
 globalThis.fetch=async()=>{calls++;await new Promise(resolve=>setTimeout(resolve,30));return new Response(JSON.stringify({id:"email-concurrent"}),{status:200});};
 const states=await Promise.all([alerts.sendOrderAlert(concurrent),alerts.sendOrderAlert(concurrent)]);assert.ok(states.includes("sent"));assert.equal(calls,1,"Shared lease prevents concurrent delivery attempts.");
 const failed="MAA-CCCCCCCCCCCC";await storage.createOrder({...template,reference:failed});
-globalThis.fetch=async()=>new Response(JSON.stringify({message:"invalid"}),{status:403});
-await assert.rejects(alerts.sendOrderAlert(failed),/did not accept/);
+globalThis.fetch=async()=>new Response(JSON.stringify({name:"validation_error",message:"You can only send testing emails to your own email address (private-owner@example.invalid)."}),{status:403});
+const diagnostics=[];const originalError=console.error;
+console.error=(...args)=>diagnostics.push(args);
+try {await assert.rejects(alerts.sendOrderAlert(failed),/only to the email on the Resend account/);}
+finally {console.error=originalError;}
+assert.deepEqual(diagnostics,[["Maa Soaps email provider rejected alert.",{status:403,code:"validation_error",reason:"testing_recipient"}]],"Diagnostics identify the failure without logging provider text or private email addresses.");
 assert.equal(await storage.readDocument(`notifications/${failed}/sent.json`),null);
 assert.ok((await storage.listDocuments("email-jobs/")).paths.some(p=>p.includes(failed)),"Failed alerts stay queued.");
 delete process.env.RESEND_API_KEY;await assert.rejects(alerts.sendOrderAlert(failed),/not connected/);

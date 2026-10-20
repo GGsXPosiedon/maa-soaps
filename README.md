@@ -5,7 +5,6 @@
 > **Visit the live website: [maa-soaps.vercel.app](https://maa-soaps.vercel.app)**
 
 A full-stack botanical soap storefront for India, with INR prices and cash on delivery. Built with Next.js 16, React 19, Radix UI, and private Vercel Blob storage.
-Resend API key : re_g2Y2qWQV_4ECYChbRuoTBK4XzkjHSfbtu
 
 ## Run locally
 

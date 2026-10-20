@@ -56,7 +56,26 @@ export async function sendOrderAlert(reference: string): Promise<"sent" | "pendi
       if (attempt < 2 && (response.status === 429 || response.status >= 500)) {
         await new Promise(resolve=>setTimeout(resolve,1000*(attempt+1))); continue;
       }
-      throw new Error("Email provider did not accept the alert. Check Resend, then retry from this order.");
+      const payload:unknown = await response.json().catch(()=>null);
+      const details = payload && typeof payload==="object" ? payload as Record<string,unknown> : {};
+      const code = typeof details.name==="string" && /^[a-z_]{1,60}$/.test(details.name) ? details.name : "unknown";
+      const message = typeof details.message==="string" ? details.message.toLowerCase() : "";
+      const reason = /only send testing emails/.test(message) ? "testing_recipient"
+        : /api key.*invalid|missing api key/.test(message) ? "invalid_key"
+        : /not active|suspend/.test(message) ? "inactive_key"
+        : /domain.*not verified|verify a domain|from.*verified/.test(message) ? "unverified_sender"
+        : /quota/.test(message) ? "quota"
+        : /scope|permission|restricted/.test(message) ? "key_permissions" : "provider_error";
+      // Log only allowlisted diagnostics; provider bodies may contain private data.
+      console.error("Maa Soaps email provider rejected alert.", {status:response.status,code,reason});
+      const help = reason==="testing_recipient" ? "The testing sender can send only to the email on the Resend account."
+        : reason==="invalid_key" ? "Replace the invalid Resend API key in Vercel and redeploy."
+        : reason==="inactive_key" ? "Check that the Resend API key is active."
+        : reason==="unverified_sender" ? "Check the sender's domain verification in Resend."
+        : reason==="quota" ? "Check the account's Resend sending limit."
+        : reason==="key_permissions" ? "Check the key's sending and domain permissions in Resend."
+        : "Check Resend, then retry from this order.";
+      throw new Error(`Email provider did not accept the alert. ${help}`);
     }
     if (!messageId) throw new Error("Email provider did not confirm the alert.");
     try { await createDocument(receiptPath, { sentAt: new Date().toISOString(), messageId }); }
