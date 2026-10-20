@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1760 1240" role="img" aria-labelledby="title desc"><title id="title">Maa Soaps notebook — Haldi &amp; Honey</title><desc id="desc">An open illustrated notebook spread with haldi &amp; honey, a botanical study and a Maa soap illustration. Sample brand content.</desc><defs>
+  <filter id="grain" x="-8%" y="-8%" width="116%" height="116%"><feTurbulence type="fractalNoise" baseFrequency=".68" numOctaves="3" seed="12" result="noise"/><feColorMatrix in="noise" type="saturate" values="0"/><feComponentTransfer><feFuncA type="table" tableValues="0 .075"/></feComponentTransfer><feBlend in="SourceGraphic" mode="multiply"/></filter>
+  <filter id="shadow" x="-30%" y="-80%" width="160%" height="260%"><feGaussianBlur stdDeviation="12"/></filter>
+  <linearGradient id="soaplight" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="white" stop-opacity=".21"/><stop offset=".6" stop-color="white" stop-opacity="0"/><stop offset="1" stop-color="#39412d" stop-opacity=".11"/></linearGradient>
+  <linearGradient id="fold" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#6c6046" stop-opacity="0"/><stop offset=".47" stop-color="#6c6046" stop-opacity=".07"/><stop offset=".5" stop-color="#6c6046" stop-opacity=".24"/><stop offset=".54" stop-color="#fffdf6" stop-opacity=".3"/><stop offset="1" stop-color="#fffdf6" stop-opacity="0"/></linearGradient>
+  <pattern id="paperlines" width="53" height="61" patternUnits="userSpaceOnUse"><path d="M2 17l10 -2m28 31 4 1M18 57l3 1" fill="none" stroke="#756e53" stroke-width=".55" opacity=".14"/></pattern>
+ </defs><g>
+ <path d="M90 270Q257 260 445 275Q653 262 880 290L880 970Q663 942 458 958Q262 948 90 970Q96 795 88 632Q96 450 90 286Z" fill="#f4efdf" stroke="#d7cfb8" stroke-width="2"/>
+ <path d="M880 290Q1095 266 1295 276Q1481 262 1670 270Q1664 455 1673 625Q1663 796 1670 970Q1480 950 1293 960Q1080 943 880 970Z" fill="#f6f0e1" stroke="#d7cfb8" stroke-width="2"/>
+ <path d="M90 270Q257 260 445 275Q653 262 880 290L880 970Q663 942 458 958Q262 948 90 970Q96 795 88 632Q96 450 90 286Z" fill="url(#paperlines)"/><path d="M880 290Q1095 266 1295 276Q1481 262 1670 270Q1664 455 1673 625Q1663 796 1670 970Q1480 950 1293 960Q1080 943 880 970Z" fill="url(#paperlines)"/>
+ <path d="M105 298Q440 273 864 303M895 303Q1290 274 1654 297M105 954Q463 927 864 953M897 953Q1300 931 1655 954" fill="none" stroke="#e3dbc6" stroke-width="1.5" opacity=".9"/>
+ <path d="M849 288H912V969H849Z" fill="url(#fold)"/><path d="M880 293Q876 635 880 966" fill="none" stroke="#a99f83" stroke-width="1.4" opacity=".6"/>
+ <text x="162" y="347" font-family="Georgia,serif" font-size="19" letter-spacing="3.3" fill="#7a7c65">THE BOTANICAL COLLECTION</text>
+ <text x="789" y="347" text-anchor="end" font-family="Georgia,serif" font-size="19" fill="#848470">03 / 09</text>
+ <path d="M162 370H790" fill="none" stroke="#c4c0aa" stroke-width="1"/>
+ <g transform="translate(474 616) scale(.87)"><path d="M-16 48C-135 -36 -127 -143 -80 -233C-33 -159 -5 -61 -16 48Z" fill="#9aa376" fill-opacity=".8" stroke="#6d7850" stroke-width="2"/><path d="M-18 42Q-35 -97 -81 -221" fill="none" stroke="#76825a" stroke-width="1.4"/><path d="M-8 45C-4 -92 59 -187 128 -213C140 -107 78 -14 -8 45Z" fill="#adb58a" fill-opacity=".78" stroke="#77845b" stroke-width="2"/><path d="M-5 33Q77 -105 121 -200" fill="none" stroke="#78855c" stroke-width="1.4"/>
+ <path d="M-94 108C-146 107 -155 59 -116 43L-49 25L-87 -25C-98 -45 -75 -65 -55 -50L-4 0L5 -38C8 -65 42 -62 43 -37L43 14L104 -5C132 -9 146 16 124 37L76 64L123 101C148 129 128 153 103 140L56 112L50 158C47 187 13 186 9 164L-1 123L-38 162C-61 182 -85 161 -68 138L-52 110Z" fill="#cfa451" stroke="#9d793d" stroke-width="2.5"/>
+ <path d="M-109 60l12 26m27 -47 17 29m7 -7 18 30m17 -38 23 16m7 -41 2 28m31 -2 15 23m-11 27 -15 19m-30 5 -4 31m-39 -18 -15 -17m-14 -70 18 -12" fill="none" stroke="#a98240" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+ <ellipse cx="122" cy="140" rx="42" ry="18" transform="rotate(-17 122 140)" fill="#d4a243" stroke="#a47a2f" stroke-width="2"/><ellipse cx="122" cy="140" rx="30" ry="12" transform="rotate(-17 122 140)" fill="#d9b35e" stroke="#be9240" stroke-width="1"/></g>
+ <text x="475" y="875" text-anchor="middle" font-family="Georgia,serif" font-size="25" font-style="italic" fill="#767960">Turmeric root, drawn in warm ochre.</text>
+ <text x="976" y="347" font-family="Georgia,serif" font-size="19" letter-spacing="3.4" fill="#7a7c65">MAA SOAPS</text>
+ <text x="973" y="415" font-family="Georgia,serif" font-size="56" letter-spacing="-1.5" fill="#49513d">Haldi &amp; Honey</text>
+ <text x="976" y="459" font-family="Georgia,serif" font-size="25" font-style="italic" fill="#74765e">A warmer kind of morning.</text>
+ <g transform="translate(1279 663) scale(.91)"><ellipse cx="0" cy="149" rx="196" ry="24" fill="#74694c" opacity=".12" filter="url(#shadow)"/><g transform="rotate(-9)">
+ <path d="M-194 -100Q-191 -120 -165 -120L157 -117Q186 -117 191 -95L194 95Q192 127 167 134L-165 137Q-194 133 -195 103Z" fill="#b89546" stroke="#b89546" stroke-width="2"/>
+ <path d="M-194 -100Q-191 -120 -165 -120L157 -117Q186 -117 191 -95L188 82Q187 108 163 111L-167 114Q-193 111 -194 90Z" fill="#d5b15f" filter="url(#grain)"/>
+ <path d="M-194 -100Q-191 -120 -165 -120L157 -117Q186 -117 191 -95L188 82Q187 108 163 111L-167 114Q-193 111 -194 90Z" fill="url(#soaplight)"/>
+ <path d="M-174 -103Q-94 -110 -61 -109M106 -108l46 1" fill="none" stroke="#fffbed" opacity=".34" stroke-width="3" stroke-linecap="round"/>
+ <path d="M-67 -119L69 -118L66 114L-69 116Z" fill="#f2ecdc" stroke="#d2c8ae" stroke-width="1"/>
+ <path d="M-67 -119L69 -118L66 114L-69 116Z" fill="url(#paperlines)"/>
+ <text x="0" y="-20" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="51" letter-spacing="-3" fill="#4d5740">Maa</text>
+ <path d="M-25 -61Q-8 -84 15 -72Q2 -53 -25 -61Z" fill="none" stroke="#85906a" stroke-width="1.6"/><path d="M-26 -59L18 -76" fill="none" stroke="#85906a" stroke-width="1.2"/>
+ <text x="0" y="9" text-anchor="middle" font-family="Georgia,serif" font-size="13" letter-spacing="4" fill="#667151">SOAPS</text>
+ <path d="M-29 30h58" stroke="#b7b494" stroke-width=".9"/>
+ <text x="0" y="56" text-anchor="middle" font-family="Georgia,serif" font-size="14" letter-spacing="1.2" fill="#73775f">HALDI</text>
+ <text x="0" y="80" text-anchor="middle" font-family="Georgia,serif" font-size="12" fill="#7b7f68">a little care</text><circle cx="170.7" cy="-15.1" r="0.9" fill="#b89546" opacity=".42"/><circle cx="-152.5" cy="-78.8" r="1.8" fill="#b89546" opacity=".42"/><circle cx="84.2" cy="47.3" r="2.1" fill="#b89546" opacity=".42"/><circle cx="-175.1" cy="-43.7" r="0.9" fill="#b89546" opacity=".42"/><circle cx="-119.5" cy="-52.8" r="1.3" fill="#b89546" opacity=".42"/><circle cx="-91.6" cy="-88.0" r="1.3" fill="#b89546" opacity=".42"/><circle cx="-175.5" cy="-38.2" r="2.2" fill="#b89546" opacity=".42"/><circle cx="-172.6" cy="60.2" r="2.1" fill="#b89546" opacity=".42"/><circle cx="101.5" cy="4.9" r="0.9" fill="#b89546" opacity=".42"/><circle cx="172.9" cy="-60.9" r="0.9" fill="#b89546" opacity=".42"/><circle cx="-121.5" cy="-20.1" r="1.6" fill="#b89546" opacity=".42"/><circle cx="-177.2" cy="58.5" r="0.8" fill="#b89546" opacity=".42"/><circle cx="169.8" cy="60.1" r="0.8" fill="#b89546" opacity=".42"/><circle cx="85.0" cy="50.2" r="1.4" fill="#b89546" opacity=".42"/><circle cx="103.0" cy="-61.2" r="1.6" fill="#b89546" opacity=".42"/><circle cx="-82.3" cy="-34.2" r="1.1" fill="#b89546" opacity=".42"/><circle cx="118.6" cy="-50.8" r="1.2" fill="#b89546" opacity=".42"/><circle cx="116.5" cy="-53.3" r="1.1" fill="#b89546" opacity=".42"/><circle cx="-137.8" cy="-60.0" r="0.7" fill="#b89546" opacity=".42"/></g></g>
+ <path d="M976 844H1577" fill="none" stroke="#c4c0aa" stroke-width="1"/>
+ <text x="976" y="886" font-family="Georgia,serif" font-size="26" fill="#60674e">Golden tones for your soap dish.</text>
+ <text x="1576" y="927" text-anchor="end" font-family="Georgia,serif" font-size="16" letter-spacing="2" fill="#8b8b76">MAA / THE LITTLE SOAP NOTEBOOK</text>
+ </g></svg>

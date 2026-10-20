@@ -1,0 +1,13 @@
+node_modules
+.next
+dist
+.sites-runtime
+.wrangler
+.vinext
+.openai
+.git
+*.tsbuildinfo
+examples
+work
+.env*
+.vercel

@@ -1,0 +1,6 @@
+* text=auto eol=lf
+
+# Keep the registered ThreeUI revision byte-for-byte identical.
+public/landing-pages/meng-to-sketchbook.html -text
+vendor/threeui-registered/** -text
+lib/threeui/style.css -text
